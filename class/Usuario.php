@@ -69,6 +69,23 @@
 
 		}
 
+		public function generatefields($params=array()){
+
+			$i = 0;
+			var_dump($params);
+			exit;
+			$campos = implode(' ', array_map(
+			    function ($key) use (&$i){
+			    	return $i == 0 ? $key." = ?, " : $key." ?,";
+			    	$i+=1;
+			    }, 
+		    array_keys($params)
+			));
+
+			return substr($campos,0,-2);
+		
+		}
+
 		public function loadById($id){
 
 			$query = $this->instancia->select("SELECT *FROM tb_usuarios WHERE idusuario = 
@@ -86,6 +103,50 @@
 				));
 
 			}
+
+		}
+
+		public function getlist(){
+
+			return $query = $this->instancia->select("SELECT *FROM tb_usuarios ORDER BY deslogin;");
+		}
+
+		public function search($login){
+
+			return $query = $this->instancia->select("SELECT *FROM tb_usuarios WHERE deslogin LIKE :search
+			ORDER BY deslogin;",array(":search"=>"%".$login."%"));
+		}
+
+		public function login($login,$password){
+
+			$query = $this->instancia->select("SELECT *FROM tb_usuarios WHERE deslogin = :login and 
+			dessenha = :password;",
+			array(":login"=>$login,
+				  ":password"=>$password)
+			);
+			
+			if(count($query) > 0){
+
+				$row = $query[0];
+
+				$this->loadsets(array(
+					"setIdusuario"=>$row['idusuario'],
+					"setDeslogin"=>$row['deslogin'],
+					"setDessenha"=>$row['dessenha'],
+					"setDtcadastro"=>new Datetime($row['dtcadastro'])
+				));
+
+			}else{
+
+				throw new Exception("Login ou Senha invalidos.",1);
+				
+			}
+
+		}
+
+		public function customize_search($params=array()){
+
+			$search = $this->generatefields($params);	
 
 		}
 
