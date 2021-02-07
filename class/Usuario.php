@@ -176,6 +176,17 @@
 
 			}
 
+		}
+
+		public function delete(){
+
+			$query = $this->instancia->query("DELETE FROM tb_usuarios WHERE idusuario = :idusuario;",
+			array(":idusuario"=>$this->getIdusuario()));
+
+			$this->setIdusuario(0);
+			$this->setDeslogin("");
+			$this->setDessenha("");
+			$this->setDtcadastro(new Datetime());
 
 		}
 

@@ -28,8 +28,15 @@
 	//$aluno->insert();
 	//echo $aluno;
 
-	$Usuario = new Usuario();
+	// Alterar usuário
+	/*$Usuario = new Usuario();
 	$Usuario->update(4,'pelezinho22','omelhordomundo22');
+	echo $Usuario;*/
+
+	// Deletar usuário
+	$Usuario = new Usuario();
+	$Usuario->loadById(10);
+	$Usuario->delete();
 	echo $Usuario;
 
 
