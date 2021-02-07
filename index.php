@@ -19,9 +19,18 @@
 	//echo json_encode($search);
 
 	// Carrega um usuário com login e senha altentivado
-	$Usuario = new Usuario();
-	$Usuario->login("root2","!#res2");
+	//$Usuario = new Usuario();
+	//$Usuario->login("root2","!#res2");
+	//echo $Usuario;
 
+	// Criando um novo usuário
+	//$aluno = new Usuario("gabriel_cursino","12#7889");
+	//$aluno->insert();
+	//echo $aluno;
+
+	$Usuario = new Usuario();
+	$Usuario->update(4,'pelezinho22','omelhordomundo22');
 	echo $Usuario;
+
 
 ?>
